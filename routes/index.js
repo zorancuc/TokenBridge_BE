@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const { validateToken } = require('../services/middleware');
-var path = require('path');
 
 const pia = {
     'v1': require('./pia/v1')
@@ -17,6 +16,9 @@ const bridge = {
 
 /* GET home page. */
 // router.get('/', (req, res) => res.send("Futurepia Microservice REST API is working"));
+router.get('/', function(req, res) {
+    res.sendFile(path.join(process.cwd() + '/public/index.html'));
+});
 
 router.use('/api/auth', require('./auth'));
 router.use('/api/bridge/v1', validateToken, bridge['v1']);
